@@ -1,0 +1,72 @@
+<form
+      nz-form
+      [formGroup]="contactForm"
+      (ngSubmit)="submitForm()"
+      class="max-w-3xl mx-auto p-6">
+
+      <!-- Name Field -->
+      <nz-form-item>
+        <nz-form-control [nzErrorTip]="nameError">
+          <input
+            nz-input
+            formControlName="name"
+            placeholder="Your name*"
+            class="h-12 text-lg bg-white rounded-md" />
+          <ng-template #nameError>
+            Please enter your name
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- Email Field -->
+      <nz-form-item>
+        <nz-form-control [nzErrorTip]="emailError">
+          <input
+            nz-input
+            formControlName="email"
+            placeholder="e-Mail*"
+            class="h-12 text-lg bg-white rounded-md" />
+          <ng-template #emailError>
+            Please enter a valid email address
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- Subject Field -->
+      <nz-form-item>
+        <nz-form-control [nzErrorTip]="subjectError">
+          <input
+            nz-input
+            formControlName="subject"
+            placeholder="The subject*"
+            class="h-12 text-lg bg-white rounded-md" />
+          <ng-template #subjectError>
+            Please enter a subject
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- Message Field -->
+      <nz-form-item>
+        <nz-form-control>
+          <textarea
+            nz-input
+            formControlName="message"
+            placeholder="Your message (optional)"
+            [nzAutosize]="{ minRows: 6, maxRows: 12 }"
+            class="text-lg bg-white rounded-md">
+          </textarea>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- Submit Button -->
+      <div class="flex justify-end mt-6">
+        <button
+          nz-button
+          nzType="primary"
+          [nzLoading]="isSubmitting"
+          class="h-12 px-12 text-lg font-medium bg-yellow-500 border-yellow-500 hover:bg-yellow-600 hover:border-yellow-600">
+          SUBMIT
+        </button>
+      </div>
+    </form>
