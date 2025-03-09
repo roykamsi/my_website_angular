@@ -80,3 +80,71 @@ nz-content {
   background: #fff;
   height: 100%;
 }
+
+/* ng-zorro layout fix  */
+
+:host {
+  min-height: 100vh;
+  /* Use min-height instead of height for more flexibility */
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  /* Using flex: 1 ensures it takes available space */
+}
+
+nz-layout {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* Fix for nested nz-layout */
+nz-layout > nz-layout {
+  flex: 1;
+  /* Ensures inner layout takes up space */
+}
+
+nz-content {
+  margin: 17px;
+  padding: 24px;
+  background: #fff;
+  flex: 1;
+  overflow-y: auto;
+  /* Allows content to scroll if needed */
+}
+
+/* Additional fix for mobile */
+@media (max-width: 768px) {
+  nz-content {
+    margin: 12px;
+    padding: 12px;
+    /* Smaller margins on mobile */
+  }
+}
+
+/* Rest of your styles remain the same */
+.trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}
+
+nz-header {
+  background: #fff;
+  padding: 0;
+}
+
+nz-footer {
+  text-align: center;
+}
+
+/* ng-zorro layout fix  */
