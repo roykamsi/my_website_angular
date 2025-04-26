@@ -1,0 +1,42 @@
+.btn {
+  display: inline-block;
+  height: auto !important;
+  padding: 1rem 3rem;
+  position: relative;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: theme('colors.secondary');
+  background-color: theme('colors.primary-light');
+  border: 2px solid theme('colors.secondary');
+  -webkit-mask-image: -webkit-radial-gradient(#000, #fff);
+  z-index: 2;
+}
+.btn:hover:before {
+  transform: translateY(-50%) scale(2.01);
+  aspect-ratio: 1;
+}
+.btn:before {
+  aspect-ratio: 2;
+  background: #fff;
+  border-radius: 50%;
+  content: "";
+  left: -105%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) scale(1);
+  transform-origin: left center;
+  transition: transform .2s ease-in-out;
+  width: 105%;
+}
+
+.btn span {
+  mix-blend-mode: difference;
+}
+
+.vh-100 {
+  height: 100vh;
+}
+
+.vh-80 {
+  height: 80vh;
+}

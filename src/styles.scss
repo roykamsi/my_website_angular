@@ -2,9 +2,16 @@
 // @tailwind base;
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+@import "customUtilities";
+@import "assets/fontawesome/css/all.min.css";
+@import "assets/animations.scss";
 
 /* Typography
 --------------------------------------------- */
+
+:root {
+  --body-background: #f5f5f5
+}
 
 @font-face {
   font-family: 'Rubik';
@@ -20,13 +27,13 @@ textarea {
   font-family: Rubik;
   font-size: 1rem;
   line-height: 1.5;
+  background-color: var(--body-background);
 }
 
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden; /* Prevents double scrollbars */
 }
 
 @supports (-webkit-touch-callout: none) {
@@ -52,7 +59,7 @@ h6 {
 
 h1 {
   font-size: 5rem;
-  margin: 0.67em 0;
+  margin: 0.67rem 0;
 }
 
 h2 {
@@ -105,10 +112,10 @@ pre {
   border-radius: 8px;
   font-family: "Courier 10 Pitch", courier, monospace;
   line-height: 1.6;
-  margin-bottom: 1.6em;
+  margin-bottom: 1.6rem;
   max-width: 100%;
   overflow: auto;
-  padding: 1.6em;
+  padding: 1.6rem;
 }
 
 code,
@@ -141,12 +148,12 @@ hr {
   background-color: #ccc;
   border: 0;
   height: 1px;
-  margin-bottom: 1.5em;
+  margin-bottom: 1.5rem;
 }
 
 ul,
 ol {
-  margin: 0 0 1.5em 3em;
+  margin: 0 0 1.5rem 3rem;
 }
 
 ul {
@@ -160,7 +167,7 @@ ol {
 li>ul,
 li>ol {
   margin-bottom: 0;
-  margin-left: 1.5em;
+  margin-left: 1.5rem;
 }
 
 dt {
@@ -168,7 +175,7 @@ dt {
 }
 
 dd {
-  margin: 0 1.5em 1.5em;
+  margin: 0 1.5rem 1.5rem;
 }
 
 /* Make sure embeds and iframes fit their containers. */
@@ -190,6 +197,6 @@ figure {
 }
 
 table {
-  margin: 0 0 1.5em;
+  margin: 0 0 1.5rem;
   width: 100%;
 }
