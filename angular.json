@@ -48,7 +48,9 @@
             ],
             "styles": [
               "src/theme.less",
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/leaflet/dist/leaflet.css",
+              "node_modules/@maptiler/leaflet-maptilersdk/leaflet-maptilersdk.css"
             ],
             "scripts": [],
             "server": "src/main.server.ts",

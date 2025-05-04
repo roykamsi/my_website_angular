@@ -1,0 +1,64 @@
+.map-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.map-frame {
+  height: 400px;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
+}
+
+.custom-pin {
+  background: none;
+  border: none;
+}
+
+:host ::ng-deep {
+  // Remove tile borders
+  .leaflet-tile {
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  // Create ultra-dark style with enhanced contrast
+  .leaflet-tile-pane {
+    filter: brightness(0.85) contrast(1.1) saturate(0.9);
+  }
+
+  // Remove borders around text
+  .leaflet-tile-loaded {
+    outline: none !important;
+  }
+
+  // Ensure smooth transitions between tiles
+  .leaflet-fade-anim .leaflet-tile {
+    will-change: opacity;
+    transition: opacity 0.2s linear;
+  }
+
+  // Create glowing white labels
+  .leaflet-container {
+    font-family: 'Arial', sans-serif;
+    font-weight: 500;
+    text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.3),
+                 0px 0px 3px rgba(255, 255, 255, 0.2);
+    background-color: #121212;
+  }
+
+  // Make map container darker
+  #map {
+    background-color: #121212;
+  }
+}
