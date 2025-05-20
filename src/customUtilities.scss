@@ -40,3 +40,6 @@
 .vh-80 {
   height: 80vh;
 }
+.vh-100-adapted {
+  height: calc(100vh - 155px);
+}
