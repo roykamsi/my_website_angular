@@ -21,14 +21,23 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     const leaflet = await import('leaflet');
     this.L = leaflet;
 
+    // Add the CSS link dynamically since imports are not working
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.css';
+    document.head.appendChild(link);
+
+    await import('leaflet-gesture-handling');
+
     // Initialize map at Padua coordinates
     const position = [45.39847139398537, 11.86240960834596]; // Using your preferred starting position
 
     this.map = this.L.map('map', {
       center: position,
       zoom: 14, // Using your preferred zoom level
-      zoomControl: false
-    });
+      zoomControl: false,
+      gestureHandling: true
+    })
 
     // Use regular tile layer for MapTiler dark style with adjusted options
     this.L.tileLayer(`https://api.maptiler.com/maps/dataviz-dark/{z}/{x}/{y}@2x.png?key=${this.API_KEY}`, {
