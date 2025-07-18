@@ -39,36 +39,40 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       gestureHandling: true
     })
 
-    // Use regular tile layer for MapTiler dark style with adjusted options
-    this.L.tileLayer(`https://api.maptiler.com/maps/dataviz-dark/{z}/{x}/{y}@2x.png?key=${this.API_KEY}`, {
-      tileSize: 512,
-      zoomOffset: -1,
-      minZoom: 1,
-      // attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
-      crossOrigin: true
-    }).addTo(this.map);
+    if (this.API_KEY) {
+      // Use regular tile layer for MapTiler dark style with adjusted options
+      this.L.tileLayer(`https://api.maptiler.com/maps/dataviz-dark/{z}/{x}/{y}@2x.png?key=${this.API_KEY}`, {
+        tileSize: 512,
+        zoomOffset: -1,
+        minZoom: 1,
+        // attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
+        crossOrigin: true
+      }).addTo(this.map);
 
-    // Create a custom orange marker icon
-    const orangeIcon = this.L.divIcon({
-      className: 'custom-pin',
-      html: `<div class="pin-container">
-              <svg width="30" height="42" viewBox="0 0 30 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M15 0C6.716 0 0 6.716 0 15C0 25.5 15 42 15 42S30 25.5 30 15C30 6.716 23.284 0 15 0Z" fill="#F0A030"/>
-                <circle cx="15" cy="15" r="6" fill="white"/>
-              </svg>
-            </div>`,
-      iconSize: [30, 42],
-      iconAnchor: [15, 42],
-      popupAnchor: [0, -42]
-    });
+      // Create a custom orange marker icon
+      const orangeIcon = this.L.divIcon({
+        className: 'custom-pin',
+        html: `<div class="pin-container">
+                <svg width="30" height="42" viewBox="0 0 30 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M15 0C6.716 0 0 6.716 0 15C0 25.5 15 42 15 42S30 25.5 30 15C30 6.716 23.284 0 15 0Z" fill="#F0A030"/>
+                  <circle cx="15" cy="15" r="6" fill="white"/>
+                </svg>
+              </div>`,
+        iconSize: [30, 42],
+        iconAnchor: [15, 42],
+        popupAnchor: [0, -42]
+      });
 
-    // Add marker to map at the specified position
-    this.L.marker(position, { icon: orangeIcon }).addTo(this.map);
+      // Add marker to map at the specified position
+      this.L.marker(position, { icon: orangeIcon }).addTo(this.map);
 
-    // Add zoom control to a specific position
-    this.L.control.zoom({
-      position: 'bottomright'
-    }).addTo(this.map);
+      // Add zoom control to a specific position
+      this.L.control.zoom({
+        position: 'bottomright'
+      }).addTo(this.map);
+    } else {
+      console.error('MapTiler API key is not available. Please set NG_APP_MAP_TILER_API in your environment variables.');
+    }
   }
 
   ngAfterViewInit(): void {
