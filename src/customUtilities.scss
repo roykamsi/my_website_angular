@@ -12,7 +12,7 @@
   z-index: 2;
 }
 .btn:hover:before {
-  transform: translateY(-50%) scale(2.01);
+  transform: translateY(-50%) scale(2.02);
   aspect-ratio: 1;
 }
 .btn:before {
@@ -20,7 +20,7 @@
   background: #fff;
   border-radius: 50%;
   content: "";
-  left: -105%;
+  left: -110%;
   position: absolute;
   top: 50%;
   transform: translateY(-50%) scale(1);

@@ -1,20 +1,20 @@
 <div class="vh-100-adapted flex flex-col justify-between">
   <div id="upper-part">
     <h1 class="text-8xl">
-      Hey, <br />
-      I'm <span class="text-secondary">Roy</span>, <br />
-      Web Developer.
+      {{ 'hero.greeting' | translate }}<br />
+      I'm <span class="text-secondary">{{ 'hero.name' | translate }}</span>, <br />
+      {{ 'hero.title' | translate }}
     </h1>
     <p class="font-medium">
-      With Graphic Design and Marketing skills, but nerd since 12.
+      {{ 'hero.subtitle' | translate }}
     </p>
-    <a href="#contact-me" class="btn btn-secondary text-uppercase"
-      ><span>Contact me</span></a
-    >
+    <a href="#contact-me" class="btn btn-secondary text-uppercase">
+      <span>{{ 'hero.contactButton' | translate }}</span>
+    </a>
   </div>
 
   <div class="scroll-down text-center">
-    <p class="fw-bold">Scroll down</p>
+    <p class="fw-bold">{{ 'hero.scrollDown' | translate }}</p>
     <i
       style="font-size: 2rem; animation: bounce 2s ease-in-out infinite"
       class="fa-solid fa-angle-down"
@@ -24,30 +24,22 @@
 
 <div id="idSectionAboutMe" class="grid md:grid-cols-2 grid-cols-1 gap-16">
   <div class="desc">
-    <h2 class="text-6xl">About myself</h2>
-    <p class="w-[60%] mt-44">
-      I've fallen in love in computers &amp; web since 12. I met a friend who
-      was able to make incredible things in PHP, AngularJS and WordPress (and
-      most of all get paid from it).
-      <br /><br />
-      From 2021, after many years of graphic design experience, I decided to
-      full immerse in the field as self-taught.
-      <br /><br />
-      I'm now working in a SAP Company in Padua as developer and consultant with
-      SAPUI5 MVC framework for big client companies.
+    <h2 class="text-6xl">{{ 'about.title' | translate }}</h2>
+    <p class="w-[60%] mt-44" [innerHTML]="('about.description' | translate) | nl2br">
     </p>
   </div>
   <div class="photo-me">
     <img src="../../../assets/media/roy-white.png" alt="Roy" class="" />
   </div>
 </div>
+
 <div id="contact-me" class="grid md:grid-cols-2 grid-cols-1 gap-16 vh-100-adapted">
   <div class="wrapper">
     <div class="desc">
-      <h2 class="text-6xl">Contact <br> me</h2>
+      <h2 class="text-6xl">{{ 'contact.title' | translate }}</h2>
       <p class="">
-        If you have other request or questions, just ask even if only for a chat <span class="text-secondary">(really)</span>! I’m just on the other side of the form ;)
-      <!-- </p> -->
+        {{ 'contact.description' | translate }}
+      </p>
     </div>
     <app-email-form></app-email-form>
   </div>

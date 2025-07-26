@@ -10,14 +10,21 @@
   color: #1890ff;
 }
 
-.logo {
-  height: 32px;
-  width: 32px;
+.royk-logo {
+  height: 50px;
+  width: 50px;
+  transition: all 0.5s ease-in-out forward;
 }
 
-nz-header {
-  background: #fff;
-  padding: 0;
+.royk-logo-img {
+  background-color: #fff0;
+  padding: 8px;
+  border-radius: 5px;
+  transition: all 0.150s ease-in-out;
+}
+
+.royk-logo-img:hover {
+  background-color: #fff;
 }
 
 nz-content {
