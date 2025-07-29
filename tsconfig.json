@@ -5,7 +5,7 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
-      "@environments/*": ["environments/*"]
+      "@environments/*": ["src/environments/*"]
     },
     "outDir": "./dist/out-tsc",
     "strict": true,
