@@ -18,63 +18,61 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   constructor() {}
 
   private async initializeMap(): Promise<void> {
-    // Dynamically import Leaflet only in browser
-    const leaflet = await import('leaflet');
-    this.L = leaflet;
+  // Dynamically import Leaflet only in browser
+  const leaflet = await import('leaflet');
 
-    // Add the CSS link dynamically since imports are not working
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'https://unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.css';
-    document.head.appendChild(link);
+  // Fix: Handle both development and production module formats
+  this.L = leaflet.default || leaflet;
 
-    await import('leaflet-gesture-handling');
+  // Add the CSS link dynamically since imports are not working
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = 'https://unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.css';
+  document.head.appendChild(link);
 
-    // Initialize map at Padua coordinates
-    const position = [45.39847139398537, 11.86240960834596]; // Using your preferred starting position
+  await import('leaflet-gesture-handling');
 
-    this.map = this.L.map('map', {
-      center: position,
-      zoom: 14, // Using your preferred zoom level
-      zoomControl: false,
-      gestureHandling: true
-    })
+  // Initialize map at Padua coordinates
+  const position = [45.39847139398537, 11.86240960834596];
 
-    if (this.API_KEY) {
-      // Use regular tile layer for MapTiler dark style with adjusted options
-      this.L.tileLayer(`https://api.maptiler.com/maps/dataviz-dark/{z}/{x}/{y}@2x.png?key=${this.API_KEY}`, {
-        tileSize: 512,
-        zoomOffset: -1,
-        minZoom: 1,
-        // attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
-        crossOrigin: true
-      }).addTo(this.map);
+  this.map = this.L.map('map', {
+    center: position,
+    zoom: 14,
+    zoomControl: false,
+    gestureHandling: true
+  });
 
-      // Create a custom orange marker icon
-      const orangeIcon = this.L.divIcon({
-        className: 'custom-pin',
-        html: `<div class="pin-container">
-                <svg width="30" height="42" viewBox="0 0 30 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M15 0C6.716 0 0 6.716 0 15C0 25.5 15 42 15 42S30 25.5 30 15C30 6.716 23.284 0 15 0Z" fill="#F0A030"/>
-                  <circle cx="15" cy="15" r="6" fill="white"/>
-                </svg>
-              </div>`,
-        iconSize: [30, 42],
-        iconAnchor: [15, 42],
-        popupAnchor: [0, -42]
-      });
+  // Rest of your code remains the same...
+  if (this.API_KEY) {
+    this.L.tileLayer(`https://api.maptiler.com/maps/dataviz-dark/{z}/{x}/{y}@2x.png?key=${this.API_KEY}`, {
+      tileSize: 512,
+      zoomOffset: -1,
+      minZoom: 1,
+      crossOrigin: true
+    }).addTo(this.map);
 
-      // Add marker to map at the specified position
-      this.L.marker(position, { icon: orangeIcon }).addTo(this.map);
+    const orangeIcon = this.L.divIcon({
+      className: 'custom-pin',
+      html: `<div class="pin-container">
+              <svg width="30" height="42" viewBox="0 0 30 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 0C6.716 0 0 6.716 0 15C0 25.5 15 42 15 42S30 25.5 30 15C30 6.716 23.284 0 15 0Z" fill="#F0A030"/>
+                <circle cx="15" cy="15" r="6" fill="white"/>
+              </svg>
+            </div>`,
+      iconSize: [30, 42],
+      iconAnchor: [15, 42],
+      popupAnchor: [0, -42]
+    });
 
-      // Add zoom control to a specific position
-      this.L.control.zoom({
-        position: 'bottomright'
-      }).addTo(this.map);
-    } else {
-      console.error('MapTiler API key is not available. Please set NG_APP_MAP_TILER_API in your environment variables.');
-    }
+    this.L.marker(position, { icon: orangeIcon }).addTo(this.map);
+
+    this.L.control.zoom({
+      position: 'bottomright'
+    }).addTo(this.map);
+  } else {
+    console.error('MapTiler API key is not available. Please set NG_APP_MAP_TILER_API in your environment variables.');
   }
+}
 
   ngAfterViewInit(): void {
     // Check if we're in the browser
