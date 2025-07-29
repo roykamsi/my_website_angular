@@ -116,23 +116,46 @@ const translations: Record<string, Translations> = {
   providedIn: 'root'
 })
 export class TranslationService {
-  private currentLang = signal<string>('en-GB');
+  private static userSelectedLanguage: string | null = null;
+  private currentLang = signal<string>(this.getInitialLanguage());
 
   constructor(private nzI18nService: NzI18nService) {
-    this.initializeBrowserLanguage();
+    this.setLanguage(this.currentLang());
   }
 
-  private initializeBrowserLanguage(): void {
-    const browserLang = navigator.language || navigator.languages[0];
-    let detectedLang = 'en-GB'; // default fallback
-
-    if (browserLang.startsWith('it')) {
-      detectedLang = 'it';
-    } else if (browserLang.startsWith('en')) {
-      detectedLang = 'en-GB';
+  private getInitialLanguage(): string {
+    // Check localStorage first (only if available)
+    if (this.isLocalStorageAvailable()) {
+      const savedLang = localStorage.getItem('selectedLanguage');
+      if (savedLang && translations[savedLang]) {
+        TranslationService.userSelectedLanguage = savedLang;
+        return savedLang;
+      }
     }
 
-    this.setLanguage(detectedLang);
+    // Use user's previous choice if available
+    if (TranslationService.userSelectedLanguage) {
+      return TranslationService.userSelectedLanguage;
+    }
+
+    // Otherwise detect from browser
+    const browserLang = navigator.language || navigator.languages[0];
+
+    if (browserLang.startsWith('it')) {
+      return 'it';
+    } else if (browserLang.startsWith('en')) {
+      return 'en-GB';
+    }
+
+    return 'en-GB'; // default fallback
+  }
+
+  private isLocalStorageAvailable(): boolean {
+    try {
+      return typeof localStorage !== 'undefined' && localStorage !== null;
+    } catch {
+      return false;
+    }
   }
 
   getCurrentLanguage(): string {
@@ -140,13 +163,21 @@ export class TranslationService {
   }
 
   setLanguage(lang: string): void {
-    this.currentLang.set(lang);
+    if (translations[lang]) {
+      this.currentLang.set(lang);
+      TranslationService.userSelectedLanguage = lang;
+      
+      // Save to localStorage if available
+      if (this.isLocalStorageAvailable()) {
+        localStorage.setItem('selectedLanguage', lang);
+      }
 
-    // Update Ng-Zorro locale
-    if (lang === 'it') {
-      this.nzI18nService.setLocale(it_IT);
-    } else {
-      this.nzI18nService.setLocale(en_GB);
+      // Update Ng-Zorro locale
+      if (lang === 'it') {
+        this.nzI18nService.setLocale(it_IT);
+      } else {
+        this.nzI18nService.setLocale(en_GB);
+      }
     }
   }
 
