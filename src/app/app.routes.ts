@@ -9,7 +9,7 @@ export const routes: Routes = [
   {
     path: '',
     component: HomepageComponent,
-    title: 'Roy Kamsi Website - Homepage'  // Browser title
+    title: 'Roy Kamsi Website - Homepage'
   },
   {
     path: 'about-me',
@@ -31,4 +31,29 @@ export const routes: Routes = [
     component: SkillsComponent,
     title: 'Roy Kamsi Website - Skills'
   },
+  {
+    path: 'it',
+    children: [
+      {
+        path: '',
+        component: HomepageComponent,
+        title: 'Roy Kamsi Website - Homepage'
+      },
+      {
+        path: 'about-me',
+        component: AboutMeComponent,
+        title: 'Roy Kamsi Website - About me'
+      },
+      {
+        path: 'projects',
+        component: ProjectsComponent,
+        title: 'Roy Kamsi Website - Projects'
+      },
+      {
+        path: 'skills',
+        component: SkillsComponent,
+        title: 'Roy Kamsi Website - Skills'
+      }
+    ]
+  }
 ];

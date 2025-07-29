@@ -1,6 +1,9 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, inject, PLATFORM_ID } from '@angular/core';
 import { NzI18nService } from 'ng-zorro-antd/i18n';
 import { it_IT, en_GB } from 'ng-zorro-antd/i18n';
+import { Router, NavigationEnd } from '@angular/router';
+import { Location, isPlatformBrowser } from '@angular/common';
+import { filter } from 'rxjs/operators';
 
 export interface Translations {
   hero: {
@@ -118,12 +121,58 @@ const translations: Record<string, Translations> = {
 export class TranslationService {
   private static userSelectedLanguage: string | null = null;
   private currentLang = signal<string>(this.getInitialLanguage());
+  private router = inject(Router);
+  private location = inject(Location);
+  private platformId = inject(PLATFORM_ID);
 
   constructor(private nzI18nService: NzI18nService) {
     this.setLanguage(this.currentLang());
+    this.setupRouteListener();
+    this.handleInitialNavigation();
+  }
+
+  private setupRouteListener(): void {
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        const urlLang = this.extractLanguageFromUrl(event.url);
+        if (urlLang && urlLang !== this.currentLang()) {
+          // Use setLanguage to properly update all state including localStorage
+          this.setLanguageFromUrl(urlLang);
+        }
+      });
+  }
+
+  private setLanguageFromUrl(lang: string): void {
+    if (translations[lang]) {
+      this.currentLang.set(lang);
+      TranslationService.userSelectedLanguage = lang;
+      
+      // Save to localStorage if available
+      if (this.isLocalStorageAvailable()) {
+        localStorage.setItem('selectedLanguage', lang);
+      }
+
+      this.updateNzZorroLocale(lang);
+    }
+  }
+
+  private extractLanguageFromUrl(url: string): string | null {
+    if (url.startsWith('/it')) {
+      return 'it';
+    }
+    return 'en-GB'; // default for URLs without language prefix
   }
 
   private getInitialLanguage(): string {
+    // First check if URL already has language info (only in browser)
+    if (isPlatformBrowser(this.platformId)) {
+      const currentUrl = this.location.path();
+      if (currentUrl.startsWith('/it')) {
+        return 'it';
+      }
+    }
+
     // Check localStorage first (only if available)
     if (this.isLocalStorageAvailable()) {
       const savedLang = localStorage.getItem('selectedLanguage');
@@ -138,16 +187,44 @@ export class TranslationService {
       return TranslationService.userSelectedLanguage;
     }
 
-    // Otherwise detect from browser
-    const browserLang = navigator.language || navigator.languages[0];
+    // Otherwise detect from browser (only in browser)
+    if (isPlatformBrowser(this.platformId)) {
+      const browserLang = navigator.language || navigator.languages[0];
 
-    if (browserLang.startsWith('it')) {
-      return 'it';
-    } else if (browserLang.startsWith('en')) {
-      return 'en-GB';
+      if (browserLang.startsWith('it')) {
+        return 'it';
+      } else if (browserLang.startsWith('en')) {
+        return 'en-GB';
+      }
     }
 
     return 'en-GB'; // default fallback
+  }
+
+  private handleInitialNavigation(): void {
+    // Only handle navigation in browser environment
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    // Only auto-navigate if we're on root path and browser language is Italian
+    const currentUrl = this.location.path();
+    const detectedLang = this.currentLang();
+    
+    if (currentUrl === '/' && detectedLang === 'it' && !this.isLanguageFromUrl()) {
+      // Navigate to Italian version if browser is Italian and we're on root English page
+      this.router.navigate(['/it']);
+    }
+  }
+
+  private isLanguageFromUrl(): boolean {
+    // Check if current language was determined from URL (not browser/localStorage)
+    if (!isPlatformBrowser(this.platformId)) {
+      return false;
+    }
+    
+    const currentUrl = this.location.path();
+    return currentUrl.startsWith('/it');
   }
 
   private isLocalStorageAvailable(): boolean {
@@ -172,13 +249,33 @@ export class TranslationService {
         localStorage.setItem('selectedLanguage', lang);
       }
 
-      // Update Ng-Zorro locale
-      if (lang === 'it') {
-        this.nzI18nService.setLocale(it_IT);
-      } else {
-        this.nzI18nService.setLocale(en_GB);
-      }
+      this.updateNzZorroLocale(lang);
     }
+  }
+
+  private updateNzZorroLocale(lang: string): void {
+    // Update Ng-Zorro locale
+    if (lang === 'it') {
+      this.nzI18nService.setLocale(it_IT);
+    } else {
+      this.nzI18nService.setLocale(en_GB);
+    }
+  }
+
+  navigateWithLanguage(lang: string): void {
+    const currentUrl = this.router.url;
+    let newUrl: string;
+
+    // Remove existing language prefix if present
+    const urlWithoutLang = currentUrl.replace(/^\/it/, '') || '/';
+    
+    if (lang === 'it') {
+      newUrl = '/it' + urlWithoutLang;
+    } else {
+      newUrl = urlWithoutLang;
+    }
+
+    this.router.navigate([newUrl]);
   }
 
   translate(key: string): string {
