@@ -5,6 +5,7 @@ import { it_IT, en_GB } from 'ng-zorro-antd/i18n';
 export interface Translations {
   hero: {
     greeting: string;
+    im: string;
     name: string;
     title: string;
     subtitle: string;
@@ -18,13 +19,29 @@ export interface Translations {
   contact: {
     title: string;
     description: string;
+    name: string;
+    nameMandatory: string;
+    email: string;
+    emailMandatory: string;
+    emailInvalid: string;
+    subject: string;
+    subjectMandatory: string;
+    message: string;
+    messageMandatory: string;
+    sendButton: string;
+    messageSent: string;
   };
+  transactional: {
+    sendingMessage: string;
+    messageSent: string;
+  }
 }
 
 const translations: Record<string, Translations> = {
   'en-GB': {
     hero: {
-      greeting: 'Hey,',
+      greeting: 'Hey!',
+      im: 'I\'m',
       name: 'Roy',
       title: 'Web Developer.',
       subtitle: 'With Graphic Design and Marketing skills, but tech savy since 12.',
@@ -34,17 +51,33 @@ const translations: Record<string, Translations> = {
     about: {
       title: 'About myself',
       description: `I've fallen in love in computers & web since 12. I met a friend who was able to make incredible things in PHP, AngularJS and WordPress (and most of all get paid from it).
-From 2021, after many years of graphic design experience, I decided to full immerse in the field as self-taught.
-I'm now working in a SAP Company in Padua as developer and consultant with SAPUI5 MVC framework for big client companies.`
+      <br>From 2021, after 8 years of graphic design experience, I decided to full immerse in the field as self-taught.
+      <br>I'm now working in a SAP Company in Padua as developer and consultant with SAPUI5 MVC framework for big client companies.`
     },
     contact: {
       title: 'Contact me',
-      description: 'If you have other request or questions, just ask even if only for a chat (really)! I\'m just on the other side of the form ;)'
-    }
+      description: 'If you have other request or questions, just ask even if only for a chat (really)! I\'m just on the other side of the form ;)',
+      name: 'Name',
+      nameMandatory: 'The name is mandatory.',
+      email: 'Email',
+      emailMandatory: 'The email is mandatory.',
+      emailInvalid: 'Insert a valid email.',
+      subject: 'Subject',
+      subjectMandatory: 'The subject is mandatory.',
+      message: 'Message',
+      messageMandatory: 'The message is mandatory.',
+      sendButton: 'Send',
+      messageSent: 'Message sent.'
+    },
+    transactional: {
+      sendingMessage: 'Sending the message...',
+      messageSent: 'Message sent.'
+    },
   },
   'it': {
     hero: {
-      greeting: 'Ciao,',
+      greeting: 'Ciao!',
+      im: 'Sono',
       name: 'Roy',
       title: 'Sviluppatore Web.',
       subtitle: 'Con competenze di Graphic Design e Marketing, ma nerd informatico dai 12 anni.',
@@ -52,15 +85,30 @@ I'm now working in a SAP Company in Padua as developer and consultant with SAPUI
       scrollDown: 'Scorri verso il basso'
     },
     about: {
-      title: 'Chi sono',
+      title: 'Riguardo a me',
       description: `Mi sono innamorato di computer e web dai 12 anni. Ho conosciuto un amico che riusciva a fare cose incredibili in PHP, AngularJS e WordPress (e soprattutto a farsi pagare per questo).
-Dal 2021, dopo molti anni di esperienza nel graphic design, ho deciso di immergermi completamente nel campo come autodidatta.
-Ora lavoro in un'azienda SAP a Padova come sviluppatore e consulente con il framework SAPUI5 MVC per grandi aziende clienti.`
+<br>Dal 2021, dopo 8 anni di esperienza nel graphic design, ho deciso di immergermi completamente nel campo da autodidatta.
+<br>Ora lavoro in un'azienda SAP a Padova come sviluppatore e consulente con il framework SAPUI5 MVC per grandi aziende clienti.`
     },
     contact: {
       title: 'Contattami',
-      description: 'Se hai altre richieste o domande, chiedi pure anche solo per una chiacchierata (davvero)! Sono dall\'altra parte del modulo ;)'
-    }
+      description: 'Se hai altre richieste o domande, chiedi pure anche solo per una chiacchierata (davvero)! Sono dall\'altra parte del form ;)',
+      name: 'Nome',
+      nameMandatory: 'Il nome è obbligatorio.',
+      email: 'Email',
+      emailMandatory: 'L\'email è obbligatoria.',
+      emailInvalid: 'Inserisci un\'email valida.',
+      subject: 'Oggetto',
+      subjectMandatory: 'L\'oggetto è obbligatorio.',
+      message: 'Messaggio',
+      messageMandatory: 'Il messaggio è obbligatorio.',
+      sendButton: 'Invia',
+      messageSent: 'Messaggio inviato.'
+    },
+    transactional: {
+      sendingMessage: 'Invio del messaggio in corso...',
+      messageSent: 'Messaggio inviato.'
+    },
   }
 };
 
@@ -70,7 +118,22 @@ Ora lavoro in un'azienda SAP a Padova come sviluppatore e consulente con il fram
 export class TranslationService {
   private currentLang = signal<string>('en-GB');
 
-  constructor(private nzI18nService: NzI18nService) {}
+  constructor(private nzI18nService: NzI18nService) {
+    this.initializeBrowserLanguage();
+  }
+
+  private initializeBrowserLanguage(): void {
+    const browserLang = navigator.language || navigator.languages[0];
+    let detectedLang = 'en-GB'; // default fallback
+
+    if (browserLang.startsWith('it')) {
+      detectedLang = 'it';
+    } else if (browserLang.startsWith('en')) {
+      detectedLang = 'en-GB';
+    }
+
+    this.setLanguage(detectedLang);
+  }
 
   getCurrentLanguage(): string {
     return this.currentLang();

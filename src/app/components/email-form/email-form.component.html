@@ -1,6 +1,6 @@
 <form action="https://formspree.io/f/mdkdeaow" method="POST" #emailForm="ngForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
-    <label for="name">Name *</label>
+    <label for="name">{{ 'contact.name' | translate }} *</label>
     <input
       type="text"
       id="name"
@@ -10,12 +10,12 @@
       #nameInput="ngModel"
       class="form-control">
     <div *ngIf="nameInput.invalid && nameInput.touched" class="error-message">
-      The name is mandatory.
+      {{ 'contact.nameMandatory' | translate }}
     </div>
   </div>
 
   <div class="form-group">
-    <label for="email">Email *</label>
+    <label for="email">{{ 'contact.email' | translate }} *</label>
     <input
       type="email"
       id="email"
@@ -26,13 +26,13 @@
       #emailInput="ngModel"
       class="form-control">
     <div *ngIf="emailInput.invalid && emailInput.touched" class="error-message">
-      <span *ngIf="emailInput.errors?.['required']">The email is mandatory.</span>
-      <span *ngIf="emailInput.errors?.['email']">Insert a valid email.</span>
+      <span *ngIf="emailInput.errors?.['required']">{{ 'contact.emailMandatory' | translate }}</span>
+      <span *ngIf="emailInput.errors?.['email']">{{ 'contact.emailInvalid' | translate }}</span>
     </div>
   </div>
 
   <div class="form-group">
-    <label for="subject">Subject *</label>
+    <label for="subject">{{ 'contact.subject' | translate }} *</label>
     <input
       type="text"
       id="subject"
@@ -42,12 +42,12 @@
       #subjectInput="ngModel"
       class="form-control">
     <div *ngIf="subjectInput.invalid && subjectInput.touched" class="error-message">
-      The subject is mandatory.
+      {{ 'contact.subjectMandatory' | translate }}
     </div>
   </div>
 
   <div class="form-group">
-    <label for="message">Message *</label>
+    <label for="message">{{ 'contact.message' | translate }} *</label>
     <textarea
       id="message"
       name="message"
@@ -57,7 +57,7 @@
       #messageInput="ngModel"
       class="form-control"></textarea>
     <div *ngIf="messageInput.invalid && messageInput.touched" class="error-message">
-      The message is mandatory.
+      {{ 'contact.messageMandatory' | translate }}
     </div>
   </div>
 
@@ -66,7 +66,7 @@
       type="submit"
       [disabled]="emailForm.invalid || isSubmitting"
       class="btn-submit">
-      {{ isSubmitting ? 'Sending the message...' : 'Message sent' }}
+      {{ isSubmitting ? ('transactional.sendingMessage' | translate) : ('transactional.messageSent' | translate) }}
     </button>
   </div>
 

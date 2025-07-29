@@ -1,19 +1,16 @@
-import { Pipe, PipeTransform, inject, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Pipe, PipeTransform, inject, OnDestroy } from '@angular/core';
 import { TranslationService } from '../services/translation.service';
-import { Subscription } from 'rxjs';
 
 @Pipe({
   name: 'translate',
-  pure: false, // Make it impure to react to language changes
+  pure: false,
   standalone: true
 })
 export class TranslatePipe implements PipeTransform, OnDestroy {
   private translationService = inject(TranslationService);
-  private cdr = inject(ChangeDetectorRef);
-  private subscription?: Subscription;
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    // Clean up if needed
   }
 
   transform(key: string): string {

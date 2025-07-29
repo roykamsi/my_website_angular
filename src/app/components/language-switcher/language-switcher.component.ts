@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, inject } from "@angular/core";
+import { Component, inject, OnInit } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { NzSelectModule } from "ng-zorro-antd/select";
 import { TranslationService } from "../../services/translation.service";
@@ -20,10 +20,14 @@ import { TranslationService } from "../../services/translation.service";
     </nz-select>
     `
 })
-export class LanguageSwitcherComponent {
+export class LanguageSwitcherComponent implements OnInit {
   private translationService = inject(TranslationService);
 
   currentLanguage = this.translationService.getCurrentLanguage();
+
+  ngOnInit(): void {
+    this.currentLanguage = this.translationService.getCurrentLanguage();
+  }
 
   onCurrentLanguageChange(lang: string): void {
     this.translationService.setLanguage(lang);

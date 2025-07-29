@@ -2,7 +2,7 @@
   <div id="upper-part">
     <h1 class="text-8xl">
       {{ 'hero.greeting' | translate }}<br />
-      I'm <span class="text-secondary">{{ 'hero.name' | translate }}</span>, <br />
+      {{ 'hero.im' | translate }} <span class="text-secondary">{{ 'hero.name' | translate }}</span>, <br />
       {{ 'hero.title' | translate }}
     </h1>
     <p class="font-medium">
@@ -25,8 +25,7 @@
 <div id="idSectionAboutMe" class="grid md:grid-cols-2 grid-cols-1 gap-16">
   <div class="desc">
     <h2 class="text-6xl">{{ 'about.title' | translate }}</h2>
-    <p class="w-[60%] mt-44" [innerHTML]="('about.description' | translate) | nl2br">
-    </p>
+    <p class="w-[60%] mt-44" [innerHTML]="('about.description' | translate | nl2br)"></p>
   </div>
   <div class="photo-me">
     <img src="../../../assets/media/roy-white.png" alt="Roy" class="" />
