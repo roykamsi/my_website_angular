@@ -1,5 +1,6 @@
 import { PLATFORM_ID, inject, Component, AfterViewInit, OnDestroy } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-map',
@@ -12,7 +13,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   private map: any;
   private L: any;
   private platformId = inject(PLATFORM_ID);
-  private readonly API_KEY = import.meta.env.NG_APP_MAP_TILER_API || 'API NOT AVAILABLE';
+  private readonly API_KEY = environment.mapTiler?.apiKey || 'API NOT AVAILABLE';
 
   constructor() {}
 
