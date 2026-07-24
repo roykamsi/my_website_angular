@@ -52,7 +52,7 @@ const translations: Record<string, Translations> = {
       scrollDown: 'Scroll down'
     },
     about: {
-      title: 'About myself',
+      title: 'About me',
       description: `I've fallen in love in computers & web since 12. I met a friend who was able to make incredible things in PHP, AngularJS and WordPress (and most of all get paid from it).
       <br>From 2021, after 8 years of graphic design experience, I decided to full immerse in the field as self-taught.
       <br>I'm now working in a SAP Company in Padua as developer and consultant with SAPUI5 MVC framework for big client companies.`
@@ -88,7 +88,7 @@ const translations: Record<string, Translations> = {
       scrollDown: 'Scorri verso il basso'
     },
     about: {
-      title: 'Riguardo a me',
+      title: 'Su di me',
       description: `Mi sono innamorato di computer e web dai 12 anni. Ho conosciuto un amico che riusciva a fare cose incredibili in PHP, AngularJS e WordPress (e soprattutto a farsi pagare per questo).
 <br>Dal 2021, dopo 8 anni di esperienza nel graphic design, ho deciso di immergermi completamente nel campo da autodidatta.
 <br>Ora lavoro in un'azienda SAP a Padova come sviluppatore e consulente con il framework SAPUI5 MVC per grandi aziende clienti.`
@@ -147,7 +147,7 @@ export class TranslationService {
     if (translations[lang]) {
       this.currentLang.set(lang);
       TranslationService.userSelectedLanguage = lang;
-      
+
       // Save to localStorage if available
       if (this.isLocalStorageAvailable()) {
         localStorage.setItem('selectedLanguage', lang);
@@ -210,7 +210,7 @@ export class TranslationService {
     // Only auto-navigate if we're on root path and browser language is Italian
     const currentUrl = this.location.path();
     const detectedLang = this.currentLang();
-    
+
     if (currentUrl === '/' && detectedLang === 'it' && !this.isLanguageFromUrl()) {
       // Navigate to Italian version if browser is Italian and we're on root English page
       this.router.navigate(['/it']);
@@ -222,7 +222,7 @@ export class TranslationService {
     if (!isPlatformBrowser(this.platformId)) {
       return false;
     }
-    
+
     const currentUrl = this.location.path();
     return currentUrl.startsWith('/it');
   }
@@ -243,7 +243,7 @@ export class TranslationService {
     if (translations[lang]) {
       this.currentLang.set(lang);
       TranslationService.userSelectedLanguage = lang;
-      
+
       // Save to localStorage if available
       if (this.isLocalStorageAvailable()) {
         localStorage.setItem('selectedLanguage', lang);
@@ -268,7 +268,7 @@ export class TranslationService {
 
     // Remove existing language prefix if present
     const urlWithoutLang = currentUrl.replace(/^\/it/, '') || '/';
-    
+
     if (lang === 'it') {
       newUrl = '/it' + urlWithoutLang;
     } else {
