@@ -7,11 +7,10 @@ import { Nl2brPipe } from '../../pipes/nl2br.pipe';
 
 
 @Component({
-  selector: 'app-homepage',
-  imports: [ContactFormComponent, MapComponent, EmailFormComponent, TranslatePipe, Nl2brPipe],
-  standalone: true,
-  templateUrl: './homepage.component.html',
-  styleUrl: './homepage.component.scss'
+    selector: 'app-homepage',
+    imports: [ContactFormComponent, MapComponent, EmailFormComponent, TranslatePipe, Nl2brPipe],
+    templateUrl: './homepage.component.html',
+    styleUrl: './homepage.component.scss'
 })
 export class HomepageComponent {
 

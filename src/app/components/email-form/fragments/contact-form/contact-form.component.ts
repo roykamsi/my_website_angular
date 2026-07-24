@@ -6,17 +6,16 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
-  selector: 'app-contact-form',
-  standalone: true,
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    NzFormModule,
-    NzInputModule,
-    NzButtonModule
-  ],
-  templateUrl: `./contact-form.component.html`,
-  styleUrls: ['./contact-form.component.scss']
+    selector: 'app-contact-form',
+    imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        NzFormModule,
+        NzInputModule,
+        NzButtonModule
+    ],
+    templateUrl: `./contact-form.component.html`,
+    styleUrls: ['./contact-form.component.scss']
 })
 export class ContactFormComponent {
   contactForm: FormGroup;

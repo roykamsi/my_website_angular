@@ -9,10 +9,9 @@ import { Subscription } from "rxjs";
 
 
 @Component({
-  selector: 'app-language-switcher',
-  standalone: true,
-  imports: [NzSelectModule, CommonModule, FormsModule],
-  template: `
+    selector: 'app-language-switcher',
+    imports: [NzSelectModule, CommonModule, FormsModule],
+    template: `
     <nz-select
       [(ngModel)]="currentLanguage"
       (ngModelChange)="onCurrentLanguageChange($event)"

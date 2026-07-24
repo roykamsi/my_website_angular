@@ -7,19 +7,18 @@ import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { LanguageSwitcherComponent } from './components/language-switcher/language-switcher.component';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterLink,
-    RouterOutlet,
-    NzLayoutModule,
-    NzMenuModule,
-    NzIconModule,
-    LanguageSwitcherComponent,
-  ],
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+    selector: 'app-root',
+    imports: [
+        CommonModule,
+        RouterLink,
+        RouterOutlet,
+        NzLayoutModule,
+        NzMenuModule,
+        NzIconModule,
+        LanguageSwitcherComponent,
+    ],
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   isCollapsed = true;
