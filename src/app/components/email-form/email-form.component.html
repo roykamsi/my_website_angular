@@ -9,9 +9,11 @@
       required
       #nameInput="ngModel"
       class="form-control">
-    <div *ngIf="nameInput.invalid && nameInput.touched" class="error-message">
-      {{ 'contact.nameMandatory' | translate }}
-    </div>
+    @if (nameInput.invalid && nameInput.touched) {
+      <div class="error-message">
+        {{ 'contact.nameMandatory' | translate }}
+      </div>
+    }
   </div>
 
   <div class="form-group">
@@ -25,10 +27,16 @@
       email
       #emailInput="ngModel"
       class="form-control">
-    <div *ngIf="emailInput.invalid && emailInput.touched" class="error-message">
-      <span *ngIf="emailInput.errors?.['required']">{{ 'contact.emailMandatory' | translate }}</span>
-      <span *ngIf="emailInput.errors?.['email']">{{ 'contact.emailInvalid' | translate }}</span>
-    </div>
+    @if (emailInput.invalid && emailInput.touched) {
+      <div class="error-message">
+        @if (emailInput.errors?.['required']) {
+          <span>{{ 'contact.emailMandatory' | translate }}</span>
+        }
+        @if (emailInput.errors?.['email']) {
+          <span>{{ 'contact.emailInvalid' | translate }}</span>
+        }
+      </div>
+    }
   </div>
 
   <div class="form-group">
@@ -41,9 +49,11 @@
       required
       #subjectInput="ngModel"
       class="form-control">
-    <div *ngIf="subjectInput.invalid && subjectInput.touched" class="error-message">
-      {{ 'contact.subjectMandatory' | translate }}
-    </div>
+    @if (subjectInput.invalid && subjectInput.touched) {
+      <div class="error-message">
+        {{ 'contact.subjectMandatory' | translate }}
+      </div>
+    }
   </div>
 
   <div class="form-group">
@@ -55,10 +65,12 @@
       required
       rows="5"
       #messageInput="ngModel"
-      class="form-control"></textarea>
-    <div *ngIf="messageInput.invalid && messageInput.touched" class="error-message">
-      {{ 'contact.messageMandatory' | translate }}
-    </div>
+    class="form-control"></textarea>
+    @if (messageInput.invalid && messageInput.touched) {
+      <div class="error-message">
+        {{ 'contact.messageMandatory' | translate }}
+      </div>
+    }
   </div>
 
   <div class="form-actions">
@@ -70,7 +82,9 @@
     </button>
   </div>
 
-  <div *ngIf="submitMessage" class="submit-message" [ngClass]="{'success': submitSuccess, 'error': !submitSuccess}">
-    {{ submitMessage }}
-  </div>
+  @if (submitMessage) {
+    <div class="submit-message" [ngClass]="{'success': submitSuccess, 'error': !submitSuccess}">
+      {{ submitMessage }}
+    </div>
+  }
 </form>

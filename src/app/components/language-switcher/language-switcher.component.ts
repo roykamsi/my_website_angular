@@ -1,4 +1,4 @@
-import { CommonModule } from "@angular/common";
+
 import { Component, inject, OnInit, OnDestroy } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { NzSelectModule } from "ng-zorro-antd/select";
@@ -10,7 +10,7 @@ import { Subscription } from "rxjs";
 
 @Component({
     selector: 'app-language-switcher',
-    imports: [NzSelectModule, CommonModule, FormsModule],
+    imports: [NzSelectModule, FormsModule],
     template: `
     <nz-select
       [(ngModel)]="currentLanguage"
