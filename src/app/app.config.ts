@@ -8,7 +8,7 @@ import {
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideClientHydration } from '@angular/platform-browser';
+import { provideClientHydration, withNoIncrementalHydration } from '@angular/platform-browser';
 import { icons } from './icons-provider';
 import { provideNzIcons } from 'ng-zorro-antd/icon';
 import { en_GB, it_IT, NZ_I18N, provideNzI18n } from 'ng-zorro-antd/i18n';
@@ -17,7 +17,7 @@ import it from '@angular/common/locales/it';
 import en from '@angular/common/locales/it';
 import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 
 registerLocaleData(it);
 registerLocaleData(en);
@@ -26,7 +26,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideClientHydration(),
+    provideClientHydration(withNoIncrementalHydration()),
     provideNzIcons(icons),
     {
       provide: LOCALE_ID,
@@ -47,6 +47,6 @@ export const appConfig: ApplicationConfig = {
     },
     importProvidersFrom(FormsModule),
     provideAnimationsAsync(),
-    provideHttpClient(),
+    provideHttpClient(withXhr()),
   ],
 };

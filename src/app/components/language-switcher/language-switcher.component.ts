@@ -1,5 +1,5 @@
 
-import { Component, inject, OnInit, OnDestroy } from "@angular/core";
+import { Component, inject, OnInit, OnDestroy, ChangeDetectionStrategy } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { NzSelectModule } from "ng-zorro-antd/select";
 import { TranslationService } from "../../services/translation.service";
@@ -11,6 +11,7 @@ import { Subscription } from "rxjs";
 @Component({
     selector: 'app-language-switcher',
     imports: [NzSelectModule, FormsModule],
+    changeDetection: ChangeDetectionStrategy.Eager,
     template: `
     <nz-select
       [(ngModel)]="currentLanguage"

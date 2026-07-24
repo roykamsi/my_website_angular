@@ -53,7 +53,9 @@
             nz-input
             formControlName="message"
             placeholder="Your message (optional)"
-            [nzAutosize]="{ minRows: 6, maxRows: 12 }"
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="6"
+            cdkAutosizeMaxRows="12"
             class="text-lg bg-white rounded-md">
           </textarea>
         </nz-form-control>

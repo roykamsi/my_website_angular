@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TextFieldModule } from '@angular/cdk/text-field';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -12,9 +13,11 @@ import { NzMessageService } from 'ng-zorro-antd/message';
         ReactiveFormsModule,
         NzFormModule,
         NzInputModule,
-        NzButtonModule
+        NzButtonModule,
+        TextFieldModule
     ],
     templateUrl: `./contact-form.component.html`,
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./contact-form.component.scss']
 })
 export class ContactFormComponent {

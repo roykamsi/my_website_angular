@@ -1,4 +1,4 @@
-import { PLATFORM_ID, inject, Component, AfterViewInit, OnDestroy } from '@angular/core';
+import { PLATFORM_ID, inject, Component, AfterViewInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { environment } from './../../../../../environments/environment';
 
@@ -6,6 +6,7 @@ import { environment } from './../../../../../environments/environment';
     selector: 'app-map',
     imports: [],
     templateUrl: './map.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './map.component.scss'
 })
 export class MapComponent implements AfterViewInit, OnDestroy {

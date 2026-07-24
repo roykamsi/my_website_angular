@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '../../pipes/translate.pipe';
@@ -8,6 +8,7 @@ import { Nl2brPipe } from '../../pipes/nl2br.pipe';
     selector: 'app-email-form',
     imports: [FormsModule, CommonModule, TranslatePipe, Nl2brPipe],
     templateUrl: './email-form.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './email-form.component.scss'
 })
 export class EmailFormComponent {
