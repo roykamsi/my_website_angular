@@ -25,17 +25,17 @@
 <div id="idSectionAboutMe" class="md:grid md:grid-cols-2 flex flex-col-reverse gap-2 md:gap-16">
   <div class="desc">
     <h2 class="text-6xl">{{ 'about.title' | translate }}</h2>
-    <p class="md:w-[60%] mt-12" [innerHTML]="('about.description' | translate | nl2br)"></p>
+    <div class="md:w-[80%] mt-12" [innerHTML]="('about.description' | translate | nl2br)"></div>
   </div>
-  <div class="photo-me">
-    <img src="../../../assets/media/roy-white.png" alt="Roy" class="" />
+  <div class="photo-me mt-12 -me-12">
+    <img src="../../../assets/media/roy-orange.webp" alt="Roy" class="" />
   </div>
 </div>
 
 <div id="contact-me" class="grid md:grid-cols-2 grid-cols-1 gap-16 vh-100-adapted">
   <div class="wrapper pe-6">
     <div class="desc">
-      <h2 class="text-6xl">{{ 'contact.title' | translate }}</h2>
+      <h2 class="text-4xl md:text-6xl">{{ 'contact.title' | translate }}</h2>
       <p class="">
         {{ 'contact.description' | translate }}
       </p>

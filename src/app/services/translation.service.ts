@@ -1,4 +1,4 @@
-import { Injectable, signal, inject, PLATFORM_ID } from '@angular/core';
+import { Injectable, signal, inject, PLATFORM_ID, afterNextRender } from '@angular/core';
 import { NzI18nService } from 'ng-zorro-antd/i18n';
 import { it_IT, en_GB } from 'ng-zorro-antd/i18n';
 import { Router, NavigationEnd } from '@angular/router';
@@ -48,15 +48,26 @@ const translations: Record<string, Translations> = {
       im: 'I\'m',
       name: 'Roy',
       title: 'Web Developer.',
-      subtitle: 'With Graphic Design and Marketing skills, but tech savy since 12.',
+      subtitle: 'With Graphic Design and Marketing skills, but working in Cloud since 2022.',
       contactButton: 'Contact me',
       scrollDown: 'Scroll down'
     },
     about: {
       title: 'About me',
-      description: `I've fallen in love in computers & web since 12. I met a friend who was able to make incredible things in PHP, AngularJS and WordPress (and most of all get paid from it).
-      <br>From 2021, after 8 years of graphic design experience, I decided to full immerse in the field as self-taught.
-      <br>I'm now working in a SAP Company in Padua as developer and consultant with SAPUI5 MVC framework for big client companies.`
+      description: `I fell in love into web and computers since 12 when I met a friend who could do incredible things with PHP, Angular and WordPress (and above all, get paid for it).
+<br>After 8 years in the graphic design world, following my degree in 2021, I decided to fully dive into the field as a self-taught developer.
+<br>I've worked: <br>
+  <ul>
+    <li>
+      Two years in web agencies. First as a Web Designer, then as a WordPress Full Stack Developer.
+    </li>
+    <li>
+      Two years at the first SAP BTP consulting company in Italy. This allowed me to deepen my knowledge of cloud enterprise, both FE and BE.
+    </li>
+    <li>
+      Since 2026 at CAME as BTP representative for the SAP department, working on Cloud green and brownfield projects with a strong focus on cybersecurity.
+    </li>
+  </ul>`
     },
     contact: {
       title: 'Contact me',
@@ -91,20 +102,11 @@ const translations: Record<string, Translations> = {
     },
     about: {
       title: 'Su di me',
-      description: `Mi sono innamorato di computer e web da quando avevo 12 anni. Ho conosciuto un amico che riusciva a fare cose incredibili in PHP, AngularJS e WordPress (e soprattutto a farsi pagare per questo).
-<br>Dopo 8 anni nel mondo nel graphic design, dopo la mia laurea nel 2021, ho deciso di immergermi completamente nel campo da autodidatta.
-<br>Ho lavorato: <br>
-  <ul>
-    <li>
-      Due anni in agenzie Web. Prima come Web Designer e poi come WordPress Full Stack Developer.
-    </li>
-    <li>
-      Due anni per la prima azienda di consulenza di SAP BTP in Italia. Questo mi ha permesso di approfondire il mondo cloud enterprise FE e BE.
-    </li>
-    <li>
-    Ad oggi da CAME come referente BTP del reparto SAP per progetti green e brown field con un serio accento alla sicurezza informatica.
-    </li>
-  </ul>
+      description: `Sono innamorato di computer e web da quando avevo 12 anni grazie a un amico che mi riusciva a a fare cose incredibili in PHP, Angular e WordPress (e soprattutto a farsi pagare).
+<br>Alché dopo 8 anni nel mondo nel graphic design, dopo la mia laurea nel 2021, ho deciso di immergermi completamente nel campo da autodidatta.
+<br>Ho lavorato: <br><ul><li>Due anni in agenzie Web. Prima come Web Designer e poi come WordPress Full Stack Developer.</li>
+<li>Due anni per la prima azienda di consulenza di SAP BTP in Italia. Questo mi ha permesso di approfondire il mondo cloud enterprise FE e BE.</li>
+<li>Dal 2026 in CAME come referente BTP del reparto SAP per progetti Cloud green e brown field con un serio accento alla sicurezza informatica.</li></ul>`
     },
     contact: {
       title: 'Contattami',
@@ -134,15 +136,25 @@ const translations: Record<string, Translations> = {
 })
 export class TranslationService {
   private static userSelectedLanguage: string | null = null;
-  private currentLang = signal<string>(this.getInitialLanguage());
   private router = inject(Router);
   private location = inject(Location);
   private platformId = inject(PLATFORM_ID);
+  private currentLang = signal<string>(this.getInitialLanguage());
 
   constructor(private nzI18nService: NzI18nService) {
     this.setLanguage(this.currentLang());
-    this.setupRouteListener();
-    this.handleInitialNavigation();
+
+    // Defer past the initial render/hydration: Angular's own automatic initial
+    // navigation (to whatever URL the browser had) still fires a NavigationEnd,
+    // which would otherwise be caught by setupRouteListener() and mistaken for
+    // an explicit request to switch to the URL's (non-prefixed) language before
+    // our own redirect below gets a chance to run.
+    afterNextRender(() => {
+      setTimeout(() => {
+        this.handleInitialNavigation();
+        this.setupRouteListener();
+      });
+    });
   }
 
   private setupRouteListener(): void {
@@ -179,12 +191,14 @@ export class TranslationService {
   }
 
   private getInitialLanguage(): string {
-    // First check if URL already has language info (only in browser)
-    if (isPlatformBrowser(this.platformId)) {
-      const currentUrl = this.location.path();
-      if (currentUrl.startsWith('/it')) {
-        return 'it';
-      }
+    // First check if URL already has language info. Location works on both
+    // server (from the incoming request URL) and browser, so this must run
+    // on both platforms - otherwise SSR always falls through to the default
+    // language regardless of the requested path, causing a language mismatch
+    // between the server-rendered HTML and the client hydration/re-render.
+    const currentUrl = this.location.path();
+    if (currentUrl.startsWith('/it')) {
+      return 'it';
     }
 
     // Check localStorage first (only if available)
@@ -196,14 +210,16 @@ export class TranslationService {
       }
     }
 
-    // Use user's previous choice if available
-    if (TranslationService.userSelectedLanguage) {
+    // Use user's previous choice if available. Browser-only: this is a
+    // static field, so on the server it would leak across requests and make
+    // one visitor's language stick for everyone else's SSR render.
+    if (isPlatformBrowser(this.platformId) && TranslationService.userSelectedLanguage) {
       return TranslationService.userSelectedLanguage;
     }
 
     // Otherwise detect from browser (only in browser)
     if (isPlatformBrowser(this.platformId)) {
-      const browserLang = navigator.language || navigator.languages[0];
+      const browserLang = (navigator.languages && navigator.languages[0]) || navigator.language;
 
       if (browserLang.startsWith('it')) {
         return 'it';
@@ -225,7 +241,7 @@ export class TranslationService {
     const currentUrl = this.location.path();
     const detectedLang = this.currentLang();
 
-    if (currentUrl === '/' && detectedLang === 'it' && !this.isLanguageFromUrl()) {
+    if ((currentUrl === '' || currentUrl === '/') && detectedLang === 'it' && !this.isLanguageFromUrl()) {
       // Navigate to Italian version if browser is Italian and we're on root English page
       this.router.navigate(['/it']);
     }
@@ -256,7 +272,9 @@ export class TranslationService {
   setLanguage(lang: string): void {
     if (translations[lang]) {
       this.currentLang.set(lang);
-      TranslationService.userSelectedLanguage = lang;
+      if (isPlatformBrowser(this.platformId)) {
+        TranslationService.userSelectedLanguage = lang;
+      }
 
       // Save to localStorage if available
       if (this.isLocalStorageAvailable()) {

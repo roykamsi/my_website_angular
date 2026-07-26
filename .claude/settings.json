@@ -6,7 +6,9 @@
       "Bash(npx ng *)",
       "Bash(nvm current *)",
       "Bash(git add *)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(xargs -I{} sh -c 'echo \"== {} ==\"; grep -o \"Su di me\\\\|About me\" \"{}\" | sort | uniq -c')",
+      "Bash(xargs cat)"
     ]
   }
 }

@@ -17,7 +17,7 @@ import { Subscription } from "rxjs";
       [(ngModel)]="currentLanguage"
       (ngModelChange)="onCurrentLanguageChange($event)"
       nzSize="small"
-    class="min-w-[100px]">
+    class="min-w-[100px] absolute right-[12px] top-[3px]">
       <nz-option nzValue="en-GB" nzLabel="🇬🇧 English"></nz-option>
       <nz-option nzValue="it" nzLabel="🇮🇹 Italiano"></nz-option>
     </nz-select>

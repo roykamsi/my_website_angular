@@ -5,7 +5,7 @@ import {
   inject,
   LOCALE_ID,
 } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withInMemoryScrolling } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideClientHydration, withNoIncrementalHydration } from '@angular/platform-browser';
@@ -25,7 +25,7 @@ registerLocaleData(en);
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
+    provideRouter(routes, withInMemoryScrolling({ anchorScrolling: 'enabled', scrollPositionRestoration: 'enabled' })),
     provideClientHydration(withNoIncrementalHydration()),
     provideNzIcons(icons),
     {

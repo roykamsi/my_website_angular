@@ -2,7 +2,7 @@
   <nz-layout>
     <nz-sider nzWidth="200px" nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null" class="bg-primary">
       <div id="slider-content" class="flex flex-col items-center gap-8 mt-4">
-        <a href="/" class="royk-logo" width="100px" height="100px"><img class="royk-logo-img" width="100%" height="100%" src="assets/media/logo-mio.png" alt=""></a>
+        <a href="/" class="royk-logo" width="100px" height="100px"><img class="royk-logo-img" width="100%" height="100%" src="assets/media/logo-mio-arancione.svg" alt=""></a>
         <ul nz-menu nzTheme="dark" nzMode="inline">
             <!-- Temprary disabled navigaition -->
           <!-- <li nz-submenu nzTitle="User" nzIcon="user">
@@ -26,7 +26,7 @@
       </div>
     </nz-sider>
     <nz-layout>
-      <nz-header class="flex justify-end pe-8 ps-0">
+      <nz-header class="flex justify-end pe-8 ps-0 h-[30px]">
           <!-- Temprary disabled navigaition -->
         <!-- <span
           class="trigger"
@@ -39,7 +39,7 @@
       <nz-content width="100%">
         <router-outlet></router-outlet>
       </nz-content>
-      <nz-footer>Roy Kamsi ©2025</nz-footer>
+      <nz-footer>Roy Kamsi ©{{currentYear()}}</nz-footer>
     </nz-layout>
   </nz-layout>
 </main>
