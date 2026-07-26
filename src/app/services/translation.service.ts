@@ -59,17 +59,7 @@ const translations: Record<string, Translations> = {
       description: `I fell in love into web and computers since 12 when I met a friend who could do incredible things with PHP, Angular and WordPress (and above all, get paid for it).
 <br>After 8 years in the graphic design world, following my degree in 2021, I decided to fully dive into the field as a self-taught developer.
 <br>I've worked: <br>
-  <ul>
-    <li>
-      Two years in web agencies. First as a Web Designer, then as a WordPress Full Stack Developer.
-    </li>
-    <li>
-      Two years at the first SAP BTP consulting company in Italy. This allowed me to deepen my knowledge of cloud enterprise, both FE and BE.
-    </li>
-    <li>
-      Since 2026 at <a href="https://www.came.com/" target="_blank">CAME</a> as BTP representative for the SAP department, working on Cloud green and brownfield projects with a strong focus on cybersecurity.
-    </li>
-  </ul>`
+  <ul><li>Two years in web agencies. First as a Web Designer, then as a WordPress Full Stack Developer.</li><li>Two years at the first SAP BTP consulting company in Italy. This allowed me to deepen my knowledge of cloud enterprise, both FE and BE.</li><li>Since 2026 at <a href="https://www.came.com/" target="_blank">CAME</a> as BTP representative for the SAP department, working on Cloud green and brownfield projects with a strong focus on cybersecurity.</li></ul>`
     },
     contact: {
       title: 'Contact me',

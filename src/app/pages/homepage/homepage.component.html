@@ -16,8 +16,8 @@
       </div>
     </div>
 
-  <div class="scroll-down text-center">
-    <p class="fw-bold">{{ 'hero.scrollDown' | translate }}</p>
+  <div class="scroll-down text-center mt-8">
+    <p class="fw-bold mb-0">{{ 'hero.scrollDown' | translate }}</p>
     <i style="font-size: 2rem; animation: bounce 2s ease-in-out infinite" class="fa-solid fa-angle-down"></i>
   </div>
 </div>
@@ -25,7 +25,7 @@
 <div id="idSectionAboutMe" class="md:grid md:grid-cols-2 flex flex-col-reverse gap-2 md:gap-16">
   <div class="desc">
     <h2 class="text-6xl">{{ 'about.title' | translate }}</h2>
-    <div class="md:w-[80%] mt-12" [innerHTML]="('about.description' | translate | nl2br)"></div>
+    <div class="md:w-[80%] mt-12 pe-6 md:pe-0" [innerHTML]="('about.description' | translate | nl2br)"></div>
   </div>
   <div class="photo-me mt-12 -me-12">
     <img src="../../../assets/media/roy-orange.webp" alt="Roy" class="" />
