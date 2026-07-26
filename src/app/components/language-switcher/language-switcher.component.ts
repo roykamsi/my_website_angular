@@ -17,11 +17,39 @@ import { Subscription } from "rxjs";
       [(ngModel)]="currentLanguage"
       (ngModelChange)="onCurrentLanguageChange($event)"
       nzSize="small"
-    class="min-w-[100px] absolute right-[12px] top-[3px]">
-      <nz-option nzValue="en-GB" nzLabel="🇬🇧 English"></nz-option>
-      <nz-option nzValue="it" nzLabel="🇮🇹 Italiano"></nz-option>
+      class="lang-switcher"
+      [nzCustomTemplate]="selectedFlagTpl">
+      <nz-option nzValue="en-GB" nzCustomContent nzLabel="English">
+        <span title="English">🇬🇧</span>
+      </nz-option>
+      <nz-option nzValue="it" nzCustomContent nzLabel="Italiano">
+        <span title="Italiano">🇮🇹</span>
+      </nz-option>
     </nz-select>
-    `
+    <ng-template #selectedFlagTpl let-selected>{{ flagFor(selected.nzValue) }}</ng-template>
+    `,
+    styles: [`
+      .lang-switcher {
+        display: inline-block;
+      }
+
+      .lang-switcher ::ng-deep .ant-select-selector {
+        background: #fff !important;
+        border-radius: 999px !important;
+        padding: 0 8px !important;
+      }
+
+      .lang-switcher ::ng-deep .ant-select-selection-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+      }
+
+      .lang-switcher ::ng-deep .ant-select-arrow {
+        color: rgba(0, 0, 0, .45);
+      }
+    `]
 })
 export class LanguageSwitcherComponent implements OnInit, OnDestroy {
   private translationService = inject(TranslationService);
@@ -49,5 +77,9 @@ export class LanguageSwitcherComponent implements OnInit, OnDestroy {
     this.translationService.setLanguage(lang);
     this.translationService.navigateWithLanguage(lang);
     this.currentLanguage = lang;
+  }
+
+  flagFor(lang: string): string {
+    return lang === 'it' ? '🇮🇹' : '🇬🇧';
   }
 }

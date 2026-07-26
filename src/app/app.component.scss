@@ -104,6 +104,7 @@ nz-header {
 
 nz-footer {
   text-align: center;
+  padding: 4px 50px;
 }
 
 nz-content {
@@ -111,6 +112,44 @@ nz-content {
   overflow-x: hidden;
   overflow-y: auto;
   margin-top: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .outer-layout {
+    flex-direction: column;
+  }
+
+  .outer-layout > nz-layout {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+  }
+
+  nz-sider {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 auto !important;
+    height: auto !important;
+  }
+
+  #slider-content {
+    flex-direction: row !important;
+    justify-content: space-between;
+    align-items: center;
+    height: auto;
+    padding: 0.5rem 1rem;
+    margin-top: 0 !important;
+  }
+
+  #slider-content app-language-switcher {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .royk-logo {
+    width: 40px !important;
+    height: 50px !important;
+  }
 }
 
 /* ng-zorro layout fix  */

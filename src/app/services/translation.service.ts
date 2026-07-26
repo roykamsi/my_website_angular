@@ -65,7 +65,7 @@ const translations: Record<string, Translations> = {
       Two years at the first SAP BTP consulting company in Italy. This allowed me to deepen my knowledge of cloud enterprise, both FE and BE.
     </li>
     <li>
-      Since 2026 at CAME as BTP representative for the SAP department, working on Cloud green and brownfield projects with a strong focus on cybersecurity.
+      Since 2026 at <a href="https://www.came.com/" target="_blank">CAME</a> as BTP representative for the SAP department, working on Cloud green and brownfield projects with a strong focus on cybersecurity.
     </li>
   </ul>`
     },
@@ -106,7 +106,7 @@ const translations: Record<string, Translations> = {
 <br>Alché dopo 8 anni nel mondo nel graphic design, dopo la mia laurea nel 2021, ho deciso di immergermi completamente nel campo da autodidatta.
 <br>Ho lavorato: <br><ul><li>Due anni in agenzie Web. Prima come Web Designer e poi come WordPress Full Stack Developer.</li>
 <li>Due anni per la prima azienda di consulenza di SAP BTP in Italia. Questo mi ha permesso di approfondire il mondo cloud enterprise FE e BE.</li>
-<li>Dal 2026 in CAME come referente BTP del reparto SAP per progetti Cloud green e brown field con un serio accento alla sicurezza informatica.</li></ul>`
+<li>Dal 2026 in <a href="https://www.came.com/" target="_blank">CAME</a> come referente BTP del reparto SAP per progetti Cloud green e brown field con un serio accento alla sicurezza informatica.</li></ul>`
     },
     contact: {
       title: 'Contattami',
