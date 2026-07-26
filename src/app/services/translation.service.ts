@@ -35,6 +35,7 @@ export interface Translations {
     messageSent: string;
   };
   transactional: {
+    sendMessage: string;
     sendingMessage: string;
     messageSent: string;
   }
@@ -73,6 +74,7 @@ const translations: Record<string, Translations> = {
       messageSent: 'Message sent.'
     },
     transactional: {
+      sendMessage: 'Send message',
       sendingMessage: 'Sending the message...',
       messageSent: 'Message sent.'
     },
@@ -109,6 +111,7 @@ const translations: Record<string, Translations> = {
       messageSent: 'Messaggio inviato.'
     },
     transactional: {
+      sendMessage: 'Invia messaggio',
       sendingMessage: 'Invio del messaggio in corso...',
       messageSent: 'Messaggio inviato.'
     },

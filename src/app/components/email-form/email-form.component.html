@@ -78,7 +78,7 @@
       type="submit"
       [disabled]="emailForm.invalid || isSubmitting"
       class="btn-submit">
-      {{ isSubmitting ? ('transactional.sendingMessage' | translate) : ('transactional.messageSent' | translate) }}
+      {{ isSubmitting ? ('transactional.sendingMessage' | translate) : (submitSuccess ? ('transactional.messageSent' | translate) : ('transactional.sendMessage' | translate)) }}
     </button>
   </div>
 
