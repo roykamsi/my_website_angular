@@ -85,15 +85,26 @@ const translations: Record<string, Translations> = {
       im: 'Sono',
       name: 'Roy',
       title: 'Sviluppatore Web.',
-      subtitle: 'Con competenze di Graphic Design e Marketing, ma nerd informatico dai 12 anni.',
+      subtitle: 'Con competenze di Graphic Design e Marketing, ma dal 2022 lavoro sul Cloud.',
       contactButton: 'Contattami',
       scrollDown: 'Scorri verso il basso'
     },
     about: {
       title: 'Su di me',
-      description: `Mi sono innamorato di computer e web dai 12 anni. Ho conosciuto un amico che riusciva a fare cose incredibili in PHP, AngularJS e WordPress (e soprattutto a farsi pagare per questo).
-<br>Dal 2021, dopo 8 anni di esperienza nel graphic design, ho deciso di immergermi completamente nel campo da autodidatta.
-<br>Ora lavoro in un'azienda SAP a Padova come sviluppatore e consulente con il framework SAPUI5 MVC per grandi aziende clienti.`
+      description: `Mi sono innamorato di computer e web da quando avevo 12 anni. Ho conosciuto un amico che riusciva a fare cose incredibili in PHP, AngularJS e WordPress (e soprattutto a farsi pagare per questo).
+<br>Dopo 8 anni nel mondo nel graphic design, dopo la mia laurea nel 2021, ho deciso di immergermi completamente nel campo da autodidatta.
+<br>Ho lavorato: <br>
+  <ul>
+    <li>
+      Due anni in agenzie Web. Prima come Web Designer e poi come WordPress Full Stack Developer.
+    </li>
+    <li>
+      Due anni per la prima azienda di consulenza di SAP BTP in Italia. Questo mi ha permesso di approfondire il mondo cloud enterprise FE e BE.
+    </li>
+    <li>
+    Ad oggi da CAME come referente BTP del reparto SAP per progetti green e brown field con un serio accento alla sicurezza informatica.
+    </li>
+  </ul>
     },
     contact: {
       title: 'Contattami',
