@@ -33,6 +33,8 @@ export interface Translations {
     messageMandatory: string;
     sendButton: string;
     messageSent: string;
+    socialLinkedin: string;
+    socialGithub: string;
   };
   transactional: {
     sendMessage: string;
@@ -82,7 +84,9 @@ const translations: Record<string, Translations> = {
       message: 'Message',
       messageMandatory: 'The message is mandatory.',
       sendButton: 'Send',
-      messageSent: 'Message sent.'
+      messageSent: 'Message sent.',
+      socialLinkedin: 'LinkedIn profile',
+      socialGithub: 'GitHub profile'
     },
     transactional: {
       sendMessage: 'Send message',
@@ -121,7 +125,9 @@ const translations: Record<string, Translations> = {
       message: 'Messaggio',
       messageMandatory: 'Il messaggio è obbligatorio.',
       sendButton: 'Invia',
-      messageSent: 'Messaggio inviato.'
+      messageSent: 'Messaggio inviato.',
+      socialLinkedin: 'Profilo LinkedIn',
+      socialGithub: 'Profilo GitHub'
     },
     transactional: {
       sendMessage: 'Invia messaggio',

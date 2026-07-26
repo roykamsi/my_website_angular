@@ -15,3 +15,12 @@
 #map {
   height: 100%;
 }
+
+.socials a {
+  color: theme('colors.secondary');
+  transition: opacity .2s ease-in-out;
+}
+
+.socials a:hover {
+  opacity: .7;
+}
